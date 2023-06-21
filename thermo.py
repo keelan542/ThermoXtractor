@@ -6,18 +6,20 @@ import os
 # Found thermo flag
 found_thermo = False
 
-# Open file and read line by line
 try:
-
 	# Print header
 	print('\n\tE(Electronic)\tE(+ZPE)\t\tE(Enthalpy)\tE(Gibbs)\tE(ZPVE)\t\tE(G0>298)\n')
 
+	# Looping through files in current directory
 	for current_file in os.listdir():
+
+		# Check if current_file is a .log Gaussian output file
 		if current_file.endswith('.log'):
 			
 			# Thermo data list
 			thermo_data = []
 
+			# Open the current_file that has been determined as a .log Gaussian output file
 			with open(current_file) as file:
 				for line in file:
 					if ' Zero-point correction=' in line:
