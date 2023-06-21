@@ -8,13 +8,17 @@ found_thermo = False
 
 # Open file and read line by line
 try:
-	for files in os.listdir():
-		if files.endswith('.log'):
+
+	# Print header
+	print('\n\tE(Electronic)\tE(+ZPE)\t\tE(Enthalpy)\tE(Gibbs)\tE(ZPVE)\t\tE(G0>298)\n')
+
+	for current_file in os.listdir():
+		if current_file.endswith('.log'):
 			
 			# Thermo data list
 			thermo_data = []
-			
-			with open(files) as file:
+
+			with open(current_file) as file:
 				for line in file:
 					if ' Zero-point correction=' in line:
 						found_thermo = True
@@ -26,10 +30,11 @@ try:
 						thermo_data.append(float(line.split()[-1]))
 
 			# Building formatted string so that thermochemistry can be displayed in an easy to read manner
-			formatted_data = '\nE(Electronic)\tE(+ZPE)\t\tE(Enthalpy)\tE(Gibbs)\tE(ZPVE)\t\tE(G0>298)\n{}\t{}\t{}\t{}\t{}\t{}'
+			formatted_data = '{}\t{}\t{}\t{}\t{}\t{}\t{}'
 
 			# Inserting approporiate data into formatted string, formatted_data and printing
-			print(formatted_data.format(round(thermo_data[4] - thermo_data[0], 6),
+			print(formatted_data.format(current_file[:-4],
+										round(thermo_data[4] - thermo_data[0], 6),
 										round(thermo_data[4], 6),
 										round(thermo_data[6], 6),
 										round(thermo_data[7], 6),
