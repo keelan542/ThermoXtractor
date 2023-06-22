@@ -35,7 +35,11 @@ try:
 			formatted_data = '{}\t{}\t{}\t{}\t{}\t{}\t{}'
 
 			# Inserting approporiate data into formatted string, formatted_data and printing
-			print(formatted_data.format(current_file[:-4],
+			current_file = current_file[:-4]
+			if len(current_file) > 7:
+				current_file = current_file[:7]
+
+			print(formatted_data.format(current_file,
 										round(thermo_data[4] - thermo_data[0], 6),
 										round(thermo_data[4], 6),
 										round(thermo_data[6], 6),
