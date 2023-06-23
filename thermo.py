@@ -32,7 +32,7 @@ try:
 						thermo_data.append(float(line.split()[-1]))
 
 			# Building formatted string so that thermochemistry can be displayed in an easy to read manner
-			formatted_data = '{:30s}{}\t{}\t{}\t{}\t{}\t{}'
+			formatted_data = '{:30s}{:.6f}\t{:.6f}\t{:.6f}\t{:.6f}\t{:.6f}\t{:.6f}'
 
 			# Inserting approporiate data into formatted string, formatted_data and printing
 			current_file = current_file[:-4]
@@ -40,12 +40,12 @@ try:
 				current_file = current_file[:20]
 
 			print(formatted_data.format(current_file,
-										round(thermo_data[4] - thermo_data[0], 6),
-										round(thermo_data[4], 6),
-										round(thermo_data[6], 6),
-										round(thermo_data[7], 6),
-										round(thermo_data[0], 6),
-										round(thermo_data[3], 6)))
+										thermo_data[4] - thermo_data[0],
+										thermo_data[4],
+										thermo_data[6],
+										thermo_data[7],
+										thermo_data[0],
+										thermo_data[3]))
 
 except Exception:
 	print('An error has occured.')
