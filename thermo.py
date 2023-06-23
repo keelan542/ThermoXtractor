@@ -8,7 +8,7 @@ found_thermo = False
 
 try:
 	# Print header
-	print('\n\tE(Electronic)\tE(+ZPE)\t\tE(Enthalpy)\tE(Gibbs)\tE(ZPVE)\t\tE(G0>298)\n')
+	print('{:30s}E(Electronic)\tE(+ZPE)\t\tE(Enthalpy)\tE(Gibbs)\tE(ZPVE)\t\tE(G0>298)\n'.format(' '))
 
 	# Looping through files in current directory
 	for current_file in os.listdir():
@@ -32,12 +32,12 @@ try:
 						thermo_data.append(float(line.split()[-1]))
 
 			# Building formatted string so that thermochemistry can be displayed in an easy to read manner
-			formatted_data = '{}\t{}\t{}\t{}\t{}\t{}\t{}'
+			formatted_data = '{:30s}{}\t{}\t{}\t{}\t{}\t{}'
 
 			# Inserting approporiate data into formatted string, formatted_data and printing
 			current_file = current_file[:-4]
-			if len(current_file) > 7:
-				current_file = current_file[:7]
+			if len(current_file) > 20:
+				current_file = current_file[:20]
 
 			print(formatted_data.format(current_file,
 										round(thermo_data[4] - thermo_data[0], 6),
