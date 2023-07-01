@@ -6,6 +6,8 @@ import os
 # Found thermo flag
 found_thermo = False
 
+energies = []
+
 try:
 	# Print header
 	print('{:30s}E(Electronic)\tE(+ZPE)\t\tE(Enthalpy)\tE(Gibbs)\tE(ZPVE)\t\tE(G0>298)\n'.format(' '))
@@ -22,6 +24,9 @@ try:
 			# Open the current_file that has been determined as a .log Gaussian output file
 			with open(current_file) as file:
 				for line in file:
+					if 'SCF Done' in line:
+						energies.append(float(line.split()[4]))
+
 					if ' Zero-point correction=' in line:
 						found_thermo = True
 						thermo_data.append(float(line.split()[-2]))
@@ -39,13 +44,16 @@ try:
 			if len(current_file) > 20:
 				current_file = current_file[:20]
 
-			print(formatted_data.format(current_file,
-										thermo_data[4] - thermo_data[0],
-										thermo_data[4],
-										thermo_data[6],
-										thermo_data[7],
-										thermo_data[0],
-										thermo_data[3]))
+			if len(thermo_data) > 0:
+				print(formatted_data.format(current_file,
+											energies[-1],
+											thermo_data[4],
+											thermo_data[6],
+											thermo_data[7],
+											thermo_data[0],
+											thermo_data[3]))
+			else:
+				print(formatted_data.format(current_file, energies[-1], 0.0, 0.0, 0.0, 0.0, 0.0))
 
 except Exception:
 	print('An error has occured.')
